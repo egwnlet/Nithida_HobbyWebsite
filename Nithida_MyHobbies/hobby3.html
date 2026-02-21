@@ -6,7 +6,7 @@
     <title>My Hobby: Origami</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="hobby3-page">
 <div class="container">
 
     <header>
@@ -83,7 +83,7 @@
             <strong>Did you know?</strong>
             <p>
                 The traditional Japanese crane is one of the most famous origami models, and folding 1,000 of them is believed
-                to bring good luck and health!
+                to bring good luck and health! It is shown as the background of this page.
             </p>
         </div>
     </section>
@@ -94,31 +94,55 @@
     </footer>
 
 </div>
-<!-- Theme Toggle Button -->
-<div class="theme-btn" onclick="toggleTheme()">🌙/☀️</div>
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
-    // Apply saved theme on load
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "dark") {
+    // Apply saved theme
+    if (localStorage.getItem("theme") === "dark") {
         document.body.classList.add("dark");
     }
 
-    // Theme toggle function
+    // Toggle Theme
     window.toggleTheme = function () {
         document.body.classList.toggle("dark");
-
-        if (document.body.classList.contains("dark")) {
-            localStorage.setItem("theme", "dark");
-        } else {
-            localStorage.setItem("theme", "light");
-        }
+        localStorage.setItem("theme",
+            document.body.classList.contains("dark") ? "dark" : "light"
+        );
     };
+
+    // Toggle Contact Form
+    window.toggleForm = function () {
+        document.getElementById("contactForm").classList.toggle("open");
+    };
+
+    // Send Feedback (clear form)
+    document.querySelector(".send-btn").addEventListener("click", function () {
+        const form = document.getElementById("contactForm");
+        const inputs = form.querySelectorAll("input, textarea");
+
+        inputs.forEach(input => input.value = "");
+        form.classList.remove("open");
+    });
 
 });
 </script>
+<!-- Theme Toggle Button -->
+<div class="theme-btn" onclick="toggleTheme()">🌙</div>
 
+<!-- Contact Button -->
+<div class="contact-btn" onclick="toggleForm()">✉</div>
+
+<!-- Contact Form -->
+<div class="contact-form" id="contactForm">
+    <h3>Send Feedback</h3>
+    <label>Name</label>
+    <input type="text">
+
+    <label>Message</label>
+    <textarea rows="3"></textarea>
+
+    <button class="send-btn">Send</button>
+</div>
 </body>
 </html>
