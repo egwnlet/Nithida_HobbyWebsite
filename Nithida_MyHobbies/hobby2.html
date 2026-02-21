@@ -6,7 +6,7 @@
     <title>My Hobby: Jigsaw Puzzles</title>
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="hobby2-page">
 
 <div class="container">
 
@@ -33,7 +33,7 @@
     <h3 class="my-progress">My Progress</h3>
     <table>
         <tr><th>Year</th><th>Achievement</th></tr>
-        <tr><td>2016</td><td>Completed my first puzzle</td></tr>
+        <tr><td>2016</td><td>Completed my first puzzle (100-piece)</td></tr>
         <tr><td>2020</td><td>Completed 300-piece puzzle</td></tr>
         <tr><td>2025</td><td>Completed 500-piece puzzle</td></tr>
     </table>
@@ -73,31 +73,55 @@
 </footer>
 
 </div>
-<!-- Theme Toggle Button -->
-<div class="theme-btn" onclick="toggleTheme()">🌙/☀️</div>
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
 
-    // Apply saved theme on load
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "dark") {
+    // Apply saved theme
+    if (localStorage.getItem("theme") === "dark") {
         document.body.classList.add("dark");
     }
 
-    // Theme toggle function
+    // Toggle Theme
     window.toggleTheme = function () {
         document.body.classList.toggle("dark");
-
-        if (document.body.classList.contains("dark")) {
-            localStorage.setItem("theme", "dark");
-        } else {
-            localStorage.setItem("theme", "light");
-        }
+        localStorage.setItem("theme",
+            document.body.classList.contains("dark") ? "dark" : "light"
+        );
     };
+
+    // Toggle Contact Form
+    window.toggleForm = function () {
+        document.getElementById("contactForm").classList.toggle("open");
+    };
+
+    // Send Feedback (clear form)
+    document.querySelector(".send-btn").addEventListener("click", function () {
+        const form = document.getElementById("contactForm");
+        const inputs = form.querySelectorAll("input, textarea");
+
+        inputs.forEach(input => input.value = "");
+        form.classList.remove("open");
+    });
 
 });
 </script>
+<!-- Theme Toggle Button -->
+<div class="theme-btn" onclick="toggleTheme()">🌙</div>
 
+<!-- Contact Button -->
+<div class="contact-btn" onclick="toggleForm()">✉</div>
+
+<!-- Contact Form -->
+<div class="contact-form" id="contactForm">
+    <h3>Send Feedback</h3>
+    <label>Name</label>
+    <input type="text">
+
+    <label>Message</label>
+    <textarea rows="3"></textarea>
+
+    <button class="send-btn">Send</button>
+</div>
 </body>
 </html>
